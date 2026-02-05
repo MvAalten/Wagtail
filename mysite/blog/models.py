@@ -1,6 +1,6 @@
 from django import forms
 from django.db import models
-
+from wagtail.search import index
 
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -48,6 +48,11 @@ class BlogPage(Page):
         ], heading="Blog information"),
             "intro", "body", "gallery_images"
         ]
+
+    search_fields = Page.search_fields + [
+        index.SearchField('intro'),
+        index.SearchField('body'),
+    ]
 
 class BlogPageGalleryImage(Orderable):
     page = ParentalKey(BlogPage, on_delete=models.CASCADE, related_name='gallery_images')
