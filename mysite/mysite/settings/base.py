@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from pathlib import Path
 
@@ -25,6 +25,7 @@ BASE_DIR = PROJECT_DIR.parent
 
 INSTALLED_APPS = [
     "wagtail.contrib.settings",
+    "base",
     "blog",
     "home",
     "search",
@@ -67,7 +68,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [
-            PROJECT_DIR / "templates",
+            os.path.join(PROJECT_DIR, "templates"),
         ],
         "APP_DIRS": True,
         "OPTIONS": {
@@ -76,6 +77,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "wagtail.contrib.settings.context_processors.settings",
             ],
         },
     },
